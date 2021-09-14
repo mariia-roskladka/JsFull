@@ -1,27 +1,13 @@
-const getDiff = (startDate, endDate) => {
-    let resultSeconds = 0;
-    if (startDate > endDate) {
-        resultSeconds = new Date(startDate - endDate) / 1000;
+export const getDiff = (startDate, endDate) => {
+    let totalSec = '';
+    if (startDate < endDate) {
+        totalSec = new Date(endDate - startDate) / 1000;
     } else {
-        resultSeconds = new Date(endDate - startDate) / 1000;
+        totalSec = new Date(startDate - endDate) / 1000;
     }
 
-    console.log(
-        `${Math.floor(resultSeconds / 3600 / 24)}d ${
-        Math.floor(resultSeconds / 3600) % 24
-      }h ${Math.floor(resultSeconds / 60) % 60}m ${
-        Math.floor(resultSeconds) % 60
-      }s`
-    );
-    return `${Math.floor(resultSeconds / 3600 / 24)}d ${
-      Math.floor(resultSeconds / 3600) % 24
-    }h ${Math.floor(resultSeconds / 60) % 60}m ${
-      Math.floor(resultSeconds) % 60
-    }s`;
+    return `${Math.floor(totalSec / 3600 / 24)}d ${Math.floor(totalSec / 3600) % 24}h ${Math.floor(totalSec / 60) % 60}m ${Math.floor(totalSec) % 60}s`;
 };
 
-
-getDiff(
-    new Date(2001, 32, 5, 22, 33, 33, 0),
-    new Date(2001, 33, 5, 33, 33, 33, 0)
-);
+console.log(getDiff(new Date(2020, 1, 14), new Date(2021, 3, 4)));
+console.log(getDiff(new Date(2021, 3, 4), new Date(2020, 1, 14)));
