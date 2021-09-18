@@ -1,66 +1,42 @@
-const shmoment = (date) => {
-    const resultDate = new Date(date);
-    console.log(resultDate);
-    return {
-        add(type, value) {
-            switch (type) {
-                case "years":
-                    resultDate.setFullYear(resultDate.getFullYear() + value);
-                    return this;
-                case "months":
-                    resultDate.setMonth(resultDate.getMonth() + value);
-                    return this;
-                case "days":
-                    resultDate.setDate(resultDate.getDate() + value);
-                    return this;
-                case "hours":
-                    resultDate.setHours(resultDate.getHours() + value);
-                    return this;
-                case "minutes":
-                    resultDate.setMinutes(resultDate.getMinutes() + value);
-                    return this;
-                case "seconds":
-                    resultDate.setSeconds(resultDate.getSeconds() + value);
-                    return this;
-                case "milliseconds":
-                    resultDate.setMilliseconds(resultDate.getMilliseconds() + value);
-                    return this;
-                default:
-                    return null;
-            }
+export const shmoment = initialValue => {
+    let resultDate = new Date(initialValue);
+    // console.log(resultDate);
+
+    const calc = {
+        add(digit, value) {
+            let timeIncrease = {
+                milliseconds: value => resultDate.setMilliseconds(resultDate.getMilliseconds() + value),
+                seconds: value => resultDate.setSeconds(resultDate.getSeconds() + value),
+                minutes: value => resultDate.setMinutes(resultDate.getMinutes() + value),
+                hours: value => resultDate.setHours(resultDate.getHours() + value),
+                days: value => resultDate.setDate(resultDate.getDate() + value),
+                months: value => resultDate.setMonth(resultDate.getMonth() + value),
+                years: value => resultDate.setFullYear(resultDate.getFullYear() + value),
+            };
+            resultDate = new Date(timeIncrease[digit](value));
+            return this;
+            // return calc
         },
-        subtract(type, value) {
-            switch (type) {
-                case "years":
-                    resultDate.setFullYear(resultDate.getFullYear() - value);
-                    return this;
-                case "months":
-                    resultDate.setMonth(resultDate.getMonth() - value);
-                    return this;
-                case "days":
-                    resultDate.setDate(resultDate.getDate() - value);
-                    return this;
-                case "hours":
-                    resultDate.setHours(resultDate.getHours() - value);
-                    return this;
-                case "minutes":
-                    resultDate.setMinutes(resultDate.getMinutes() - value);
-                    return this;
-                case "seconds":
-                    resultDate.setSeconds(resultDate.getSeconds() - value);
-                    return this;
-                case "milliseconds":
-                    resultDate.setMilliseconds(resultDate.getMilliseconds() - value);
-                    return this;
-                default:
-                    return null;
-            }
+        subtract(digit, value) {
+            let timeDecrease = {
+                milliseconds: value => resultDate.setMilliseconds(resultDate.getMilliseconds() - value),
+                seconds: value => resultDate.setSeconds(resultDate.getSeconds() - value),
+                minutes: value => resultDate.setMinutes(resultDate.getMinutes() - value),
+                hours: value => resultDate.setHours(resultDate.getHours() - value),
+                days: value => resultDate.setDate(resultDate.getDate() - value),
+                months: value => resultDate.setMonth(resultDate.getMonth() - value),
+                years: value => resultDate.setFullYear(resultDate.getFullYear() - value),
+            };
+            resultDate = new Date(timeDecrease[digit](value));
+            return this;
+            // return calc
         },
         result() {
             return resultDate;
         },
     };
+
+    return calc;
 };
-// const res = shmoment(new Date(2000, 10, 5, 11).add("months", 10).result());
-const res = shmoment(new Date(2000, 10, 5, 11)).add("hours", 10).result();
-console.log(res);
+const result = shmoment(new Date(2019, 2, 15)).add('days', 3).subtract('months', 3).result();
+console.log(result);
