@@ -4,13 +4,16 @@
  */
 
 const failedPromise = new Promise((resolve, reject) => {
-    reject(new Error("Oops, error!"));
+    /* ...code here */
+    reject(new Error('Oops, error!'));
 });
-
+console.log(failedPromise);
+// typeof failedPromise is object of promice
 /*
  * выведите в консоль ошибку в ф-ции onError
  */
 
 failedPromise.catch(function onError(error) {
+    /* ...code here */
     console.log(error);
 });
