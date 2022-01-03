@@ -3,7 +3,7 @@ const getPeople = (obj) => {
     const rooms = Object.keys(obj);
     let resultArr = [];
 
-    rooms.forEach((item, index) => {
+    rooms.forEach((item) => {
         console.log(obj[item]); // here we getting array of objects with name:value;
 
         let roomItem = obj[item];
